@@ -16,10 +16,8 @@ interface ProductCardProps {
   onSelect: (id: string) => void;
   isSelected: boolean;
   discountTime?: DiscoundTime;
-  isDiscounted: boolean;
+  isTimerFinished: boolean;
 }
-
-const zeroWidthSpace = '\u200B'
 
 const STYLES = {
   cardBaseStyles: {
@@ -77,7 +75,7 @@ const STYLES = {
     overflow: 'hidden'
   }
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected, isDiscounted, discountTime }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected, discountTime, isTimerFinished }) => {
   const { id, name, plan_ui_discount_text } = product;
 
   const cardStyles = useMemo(() => ({
@@ -102,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
           </Box>
       }
       {
-        discountTime &&
+        !isTimerFinished && discountTime &&
           <ProductCardTimer minutes={discountTime.minutes} seconds={discountTime.seconds} />
       }
 
@@ -119,11 +117,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
           <Stack direction="column" alignItems="flex-end">
             <Typography variant="body2" color="text.secondary" sx={STYLES.prevPriceText}>
               <span className='strikethroughText'>
-                {isDiscounted ? getFormattedSubscriptionPrice(product, false) : zeroWidthSpace}
+                {getFormattedSubscriptionPrice(product, false)}
               </span>
             </Typography>
             <Typography variant="h4" color="primary" sx={STYLES.priceText}>
-              {getFormattedSubscriptionPrice(product, isDiscounted)}
+              {getFormattedSubscriptionPrice(product, true)}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={STYLES.periodText}>
               {getSubscriptionPeriodText(product)}
