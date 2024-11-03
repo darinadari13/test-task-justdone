@@ -1,0 +1,29 @@
+[
+  {
+  "id": "cabbce0d-a5c5-4590-984b-c6995c81744f",
+  "name": "Unlimited 1-month Plan",
+  "regularity": "month",
+  "price": 3999,
+  "currency": "USD",
+  "trial_period": 7,
+  "trial_amount": 99
+  },
+  {
+    "id": "dabbce0d-a5c5-4590-984b-c6995c817789",
+    "name": "7-day Access",
+    "regularity": "month",
+    "price": 100, 
+    "currency": "USD",
+    "trial_period": 7, 
+    "trial_amount": 100 
+  },
+  {
+    "id": "aabbce0d-a5c5-4590-984b-c6995c817123",
+    "name": "Unlimited Annual Plan",
+    "regularity": "year",
+    "price": 2499,
+    "currency": "USD",
+    "trial_period": 14,
+    "trial_amount": 199
+  }
+]
