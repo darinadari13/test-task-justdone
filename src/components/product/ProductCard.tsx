@@ -3,12 +3,11 @@ import React, { useMemo } from 'react';
 import { Card, CardContent, Typography, Box, Stack, Chip} from '@mui/material';
 
 import { Product } from 'src/types/Product';
-import Timer from '../timer';
-import Bage from './Bage';
 import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/utils';
 import CheckedIcon from '../../assets/checked-icon.svg';
 import UnCheckedIcon from '../../assets/unchecked-icon.svg';
-import { Padding } from '@mui/icons-material';
+import { DiscoundTime } from 'src/types/common';
+import ProductCardTimer from './ProductCardTimer';
 
 
 
@@ -16,7 +15,11 @@ interface ProductCardProps {
   product: Product;
   onSelect: (id: string) => void;
   isSelected: boolean;
+  discountTime?: DiscoundTime;
+  isDiscounted: boolean;
 }
+
+const zeroWidthSpace = '\u200B'
 
 const STYLES = {
   cardBaseStyles: {
@@ -56,6 +59,7 @@ const STYLES = {
     top: 0,
     left: '40px',
     transform: 'translate(0, -50%)',
+    zIndex: 1,
     '& .MuiChip-filled': {
       backgroundColor: 'var(--green-main-color)',
       height: '28px',
@@ -65,9 +69,15 @@ const STYLES = {
       padding: 0,
       fontWeight: 600,
     },
+  },
+  timerWrapper: {
+    height: '56px',
+    borderTopLeftRadius: '8px',
+    borderTopRightRadius: '8px',
+    overflow: 'hidden'
   }
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected, isDiscounted, discountTime }) => {
   const { id, name, plan_ui_discount_text } = product;
 
   const cardStyles = useMemo(() => ({
@@ -86,12 +96,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
       sx={cardStyles}
     >
       {
-      plan_ui_discount_text &&
-        <Box sx={STYLES.absoluteChip}>
-          <Chip label={plan_ui_discount_text} color="success" />
-        </Box>
+        plan_ui_discount_text &&
+          <Box sx={STYLES.absoluteChip}>
+            <Chip label={plan_ui_discount_text} color="success" />
+          </Box>
       }
-      <Timer timeRemaining="24:30" />
+      {
+        discountTime &&
+          <ProductCardTimer minutes={discountTime.minutes} seconds={discountTime.seconds} />
+      }
 
       <CardContent sx={STYLES.cardContentStyles}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -105,10 +118,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
           </Stack>
           <Stack direction="column" alignItems="flex-end">
             <Typography variant="body2" color="text.secondary" sx={STYLES.prevPriceText}>
-              <span className='strikethroughText'>{getFormattedSubscriptionPrice(product, false)}</span>
+              <span className='strikethroughText'>
+                {isDiscounted ? getFormattedSubscriptionPrice(product, false) : zeroWidthSpace}
+              </span>
             </Typography>
             <Typography variant="h4" color="primary" sx={STYLES.priceText}>
-              {getFormattedSubscriptionPrice(product, true)}
+              {getFormattedSubscriptionPrice(product, isDiscounted)}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={STYLES.periodText}>
               {getSubscriptionPeriodText(product)}
