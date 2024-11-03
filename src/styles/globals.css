@@ -1,14 +1,14 @@
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -39,4 +39,19 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.strikethroughText {
+  position: relative;
+}
+
+.strikethroughText::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px; /* Thickness of the line */
+  background-color: var(--red-accent-color); /* Color of the strikethrough line */
+  transform: translateY(-50%);
 }

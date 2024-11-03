@@ -1,29 +1,31 @@
 [
   {
-  "id": "cabbce0d-a5c5-4590-984b-c6995c81744f",
-  "name": "Unlimited 1-month Plan",
-  "regularity": "month",
-  "price": 3999,
-  "currency": "USD",
-  "trial_period": 7,
-  "trial_amount": 99
+    "id": "cabbce0d-a5c5-4590-984b-c6995c81744f",
+    "name": "Unlimited 1-month Plan",
+    "regularity": "month",
+    "currency": "$",
+    "full_price": 6999,
+    "discounted_price": 3999,
+    "plan_ui_discount_text": "Most Popular"
   },
   {
     "id": "dabbce0d-a5c5-4590-984b-c6995c817789",
     "name": "7-day Access",
     "regularity": "month",
-    "price": 100, 
-    "currency": "USD",
-    "trial_period": 7, 
-    "trial_amount": 100 
+    "currency": "$",
+    "trial_period": 7,
+    "full_trial_price": 1000, 
+    "discounted_trial_price": 100, 
+    "full_price": 2999,
+    "plan_ui_discount_text": "Save 90%"
   },
   {
     "id": "aabbce0d-a5c5-4590-984b-c6995c817123",
     "name": "Unlimited Annual Plan",
-    "regularity": "year",
-    "price": 2499,
-    "currency": "USD",
-    "trial_period": 14,
-    "trial_amount": 199
+    "regularity": "month",
+    "currency": "$",
+    "full_price": 4900,
+    "discounted_price": 2499,
+    "plan_ui_discount_text": "Save 50%"
   }
-]
+] 

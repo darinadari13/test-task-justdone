@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-
 import PricingLayout from "src/components/layout/Layout";
 import ProductCard from "src/components/product/ProductCard";
-import { Product } from '../types/product';
 import productsData from '../data/products.json';
+import { Product } from 'src/types/Product';
 
 const products: Product[] = productsData as Product[];
 

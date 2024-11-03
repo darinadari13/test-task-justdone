@@ -1,0 +1,1 @@
+export type BageTitle = 'Most Popular' | 'Save 90%' | 'Save 50%';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
 
-import styles from 'src/styles/layout.module.css';
+import styles from './Layout.module.css';
 
 interface LayoutProps {
   children: React.ReactNode;

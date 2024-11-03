@@ -1,9 +1,15 @@
 // src/components/product/ProductCard.tsx
-import React from 'react';
-import { Card, CardContent, Typography, Box, Badge } from '@mui/material';
+import React, { useMemo } from 'react';
+import { Card, CardContent, Typography, Box, Stack, Chip} from '@mui/material';
 
 import { Product } from 'src/types/Product';
 import Timer from '../timer';
+import Bage from './Bage';
+import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/utils';
+import CheckedIcon from '../../assets/checked-icon.svg';
+import UnCheckedIcon from '../../assets/unchecked-icon.svg';
+import { Padding } from '@mui/icons-material';
+
 
 
 interface ProductCardProps {
@@ -12,35 +18,103 @@ interface ProductCardProps {
   isSelected: boolean;
 }
 
+const STYLES = {
+  cardBaseStyles: {
+    borderRadius: '16px',
+    cursor: 'pointer',
+    width: 363,
+    borderWidth: '4px',
+    overflow: 'visible',
+    position: 'relative',
+  },
+  cardContentStyles: {
+    padding: '16px', 
+    textAlign: 'center' 
+  },
+  planName: {
+    fontSize: "17px",
+    fontWeight: "bold"
+  },
+  priceText: {
+    fontSize: "20px",
+    lineHeight: "24px",
+    fontWeight: "700",
+    letterSpacing: "0.1px",
+  },
+  periodText: {
+    fontSize: "12px",
+    lineHeight: "20px",
+    letterSpacing: "0.1px",
+  },
+  prevPriceText: {
+    fontSize: "12px",
+    lineHeight: "20px",
+    letterSpacing: "0.1px",
+  },
+  absoluteChip: {
+    position: 'absolute',
+    top: 0,
+    left: '40px',
+    transform: 'translate(0, -50%)',
+    '& .MuiChip-filled': {
+      backgroundColor: 'var(--green-main-color)',
+      height: '28px',
+      padding: '4px 9px',
+    },
+    '& .MuiChip-label': {
+      padding: 0,
+      fontWeight: 600,
+    },
+  }
+}
 const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected }) => {
-  const { id, name, price, regularity } = product;
+  const { id, name, plan_ui_discount_text } = product;
 
-  const formatPrice = (amount: number) => (amount / 100).toFixed(2);
+  const cardStyles = useMemo(() => ({
+    borderColor: isSelected ? 'var(--green-main-color)' : 'var(--border-default-color)',
+    ...STYLES.cardBaseStyles
+  }), [isSelected])
+
+  const handleCardClick = () => {
+    onSelect(id)
+  }
 
   return (
     <Card
-      onClick={() => onSelect(id)}
+      onClick={handleCardClick}
       variant="outlined"
-      sx={{
-        borderColor: isSelected ? 'primary.main' : 'grey.300',
-        borderRadius: '12px',
-        cursor: 'pointer',
-        width: 250,
-      }}
+      sx={cardStyles}
     >
-
+      {
+      plan_ui_discount_text &&
+        <Box sx={STYLES.absoluteChip}>
+          <Chip label={plan_ui_discount_text} color="success" />
+        </Box>
+      }
       <Timer timeRemaining="24:30" />
 
-      <CardContent sx={{ padding: '16px', textAlign: 'center' }}>
-        <Typography variant="h6" component="div">
-          {name}
-        </Typography>
-        <Typography variant="h4" color="primary" sx={{ fontWeight: 'bold' }}>
-          ${formatPrice(price)}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Per {regularity}
-        </Typography>
+      <CardContent sx={STYLES.cardContentStyles}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Stack direction="row" spacing={1} alignItems="flex-start">
+            <Box>
+              {isSelected ? <CheckedIcon /> : <UnCheckedIcon />}
+            </Box>
+            <Typography variant="h6" component="div" sx={STYLES.planName}>
+              {name}
+            </Typography>
+          </Stack>
+          <Stack direction="column" alignItems="flex-end">
+            <Typography variant="body2" color="text.secondary" sx={STYLES.prevPriceText}>
+              <span className='strikethroughText'>{getFormattedSubscriptionPrice(product, false)}</span>
+            </Typography>
+            <Typography variant="h4" color="primary" sx={STYLES.priceText}>
+              {getFormattedSubscriptionPrice(product, true)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={STYLES.periodText}>
+              {getSubscriptionPeriodText(product)}
+            </Typography>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   );
