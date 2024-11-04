@@ -4,10 +4,12 @@ import { Container, Typography, Box } from '@mui/material';
 import styles from './Layout.module.css';
 import FeaturesList from 'src/components/feature/FeaturesList';
 import features from 'src/data/features';
+import breakpoints from 'src/styles/breakpoints';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
+
 
 const STYLES = {
   mainContainer: {
@@ -21,6 +23,11 @@ const STYLES = {
     lineHeight: "52px",
     fontWeight: 600,
     color: "var(--text-accent-color)",
+    [breakpoints.mobile]: {
+      fontSize: "28px",
+      lineHeight: "36px",
+      fontWeight: 700,
+    },
   }, 
   containerFeatures: {
     display: "flex",

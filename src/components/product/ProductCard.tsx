@@ -23,7 +23,8 @@ const STYLES = {
   cardBaseStyles: {
     borderRadius: '16px',
     cursor: 'pointer',
-    width: 363,
+    minWidth: 363,
+    width: '100%',
     borderWidth: '4px',
     overflow: 'visible',
     position: 'relative',

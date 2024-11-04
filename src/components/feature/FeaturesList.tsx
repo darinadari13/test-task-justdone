@@ -1,35 +1,52 @@
-import React from "react";
-import { Card, CardContent, Typography, Box, Stack, Chip} from '@mui/material';
+import React, { useEffect } from "react";
+import { Box, Stack } from '@mui/material';
 import { Feature } from "src/types/Feature";
 import FeatureItem from "./FeatureItem";
+import Marquee from "react-fast-marquee";
+import breakpoints from "src/styles/breakpoints";
+import useResponsive, { ScreenType } from "src/hooks/useResponsive";
+import { text } from "stream/consumers";
 
 interface FeaturesListProps {
   features: Feature[];
 }
 
 const STYLES = {
-  containerMain: {
-    textAlign: "center",
+  listWrapper: {
+    width: '100vw',
     marginBottom: '60px',
-  },
-  featuresContainer: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: 4,
+    [breakpoints.mobile]: {
+      marginBottom: '40px',
+    }
   }
 }
 
 function FeaturesList({ features }: FeaturesListProps) {
+  const screenType = useResponsive()
+  const isMobile = screenType === ScreenType.Mobile;
+
+  if (screenType === null) {
+    return null;
+  }
+  
+
   return (
-    <Box sx={STYLES.containerMain}>
-      <Box
-        sx={STYLES.featuresContainer}
-      >
-        {features.map(({ icon, label, id }) => (
-          <FeatureItem icon={icon} label={label} key={id}/>
-        ))}
-      </Box>
+    <Box sx={STYLES.listWrapper}>
+      {
+        isMobile ? (
+          <Marquee>
+            {features.map(({ icon, label, id }) => (
+              <FeatureItem icon={icon} label={label} key={id}/>
+            ))}
+          </Marquee>
+        ) : (
+          <Stack direction="row" spacing={2} justifyContent='center'>
+            {features.map(({ icon, label, id }) => (
+              <FeatureItem icon={icon} label={label} key={id}/>
+            ))}
+          </Stack>
+        )
+      }
     </Box>
   );
 }

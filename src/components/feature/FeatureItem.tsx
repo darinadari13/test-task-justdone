@@ -13,12 +13,14 @@ const STYLES = {
     alignItems: "center",
     gap: "8px",
     padding: "16px 0",
+    marginLeft: '24px',
   },
   label: {
     fontSize: "16px",
     lineHeight: "24px",
     fontWeight: 600,
     color: "var(--grey-main-color)",
+    whiteSpace: "nowrap",
   },
   icon: {
     width: "18px",
