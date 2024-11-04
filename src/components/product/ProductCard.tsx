@@ -2,12 +2,13 @@
 import React, { useMemo } from 'react';
 import { Card, CardContent, Typography, Box, Stack, Chip} from '@mui/material';
 
+import ProductCardTimer from './ProductCardTimer';
+import BestValueChip from './BestValueChip';
 import { Product } from 'src/types/Product';
 import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/utils';
+import { DiscoundTime } from 'src/types/common';
 import CheckedIcon from '../../assets/checked-icon.svg';
 import UnCheckedIcon from '../../assets/unchecked-icon.svg';
-import { DiscoundTime } from 'src/types/common';
-import ProductCardTimer from './ProductCardTimer';
 
 
 
@@ -29,8 +30,11 @@ const STYLES = {
     position: 'relative',
   },
   cardContentStyles: {
-    padding: '16px', 
-    textAlign: 'center' 
+    padding: '12px 16px', 
+    textAlign: 'center',
+    "&:last-child": {
+      paddingBottom: '12px',
+    }
   },
   planName: {
     fontSize: "17px",
@@ -73,10 +77,14 @@ const STYLES = {
     borderTopLeftRadius: '8px',
     borderTopRightRadius: '8px',
     overflow: 'hidden'
-  }
+  },
 }
+
+const ZERO_WIDTH_SPACE = '\u200B';
+const SAVE_50_TITLE = 'Save 50%'
+
 const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected, discountTime, isTimerFinished }) => {
-  const { id, name, plan_ui_discount_text } = product;
+  const { id, name, plan_ui_discount_text, discounted_trial_price } = product;
 
   const cardStyles = useMemo(() => ({
     borderColor: isSelected ? 'var(--green-main-color)' : 'var(--border-default-color)',
@@ -86,6 +94,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
   const handleCardClick = () => {
     onSelect(id)
   }
+
+  const isShowDiscountedTrialPrice = discounted_trial_price && isTimerFinished
+  const isShowBestValueChip = plan_ui_discount_text === SAVE_50_TITLE
 
   return (
     <Card
@@ -98,6 +109,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
           <Box sx={STYLES.absoluteChip}>
             <Chip label={plan_ui_discount_text} color="success" />
           </Box>
+      }
+      {
+        isShowBestValueChip && 
+        <BestValueChip/>
       }
       {
         !isTimerFinished && discountTime &&
@@ -117,7 +132,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
           <Stack direction="column" alignItems="flex-end">
             <Typography variant="body2" color="text.secondary" sx={STYLES.prevPriceText}>
               <span className='strikethroughText'>
-                {getFormattedSubscriptionPrice(product, false)}
+              {!isShowDiscountedTrialPrice ? getFormattedSubscriptionPrice(product, false) : ZERO_WIDTH_SPACE}
               </span>
             </Typography>
             <Typography variant="h4" color="primary" sx={STYLES.priceText}>
