@@ -2,16 +2,37 @@ import React, { useEffect, useState, useMemo } from 'react';
 
 import PricingLayout from "src/components/layout/Layout";
 import ProductCard from "src/components/product/ProductCard";
+import GradientButton from 'src/components/button/GradientButton';
 import productsData from '../data/products.json';
 import { Product } from 'src/types/Product';
 import useCountdown from 'src/hooks/useCountdown';
 import { Box } from '@mui/material';
+import SubscriptionText from 'src/components/subscription/Subscription';
+
+const BUTTON_TEXT = "Get Started";
 
 const products: Product[] = productsData as Product[];
 
 const DISCOUNT_TIME_WINDOW = {
   minutes: 0,
   seconds: 2,
+}
+
+const STYLES = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center', 
+    gap: '20px', 
+    flexWrap: 'wrap',
+    marginBottom: '42px',
+  },
+  subscriptionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center', 
+    gap: '24px', 
+  }
 }
 
 function getTimerEndTimestamp(): number | null {
@@ -56,7 +77,7 @@ export default function PlanPage() {
 
   return (
     <PricingLayout>
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+      <Box sx={STYLES.container}>
         {products.map((product) => (
           <ProductCard
             key={product.id}
@@ -67,6 +88,10 @@ export default function PlanPage() {
             isTimerFinished={isTimerFinished}
           />
         ))}
+      </Box>
+      <Box sx={STYLES.subscriptionContainer}>
+        <GradientButton text={BUTTON_TEXT} />
+        <SubscriptionText />
       </Box>
     </PricingLayout>
   );

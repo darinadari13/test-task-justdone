@@ -1,9 +1,13 @@
 :root {
   --green-main-color: #00B39B;      
   --grey-main-color: #22293B;    
+  --grey-secondary-color: #d9d9d9;
   --border-default-color: #D7F4F3;
   --red-accent-color: #FF0000;
   --yellow-accent-color: #FECE1F;
   --text-accent-color: #181B29;
+  --text-secondary-color: #747E97;
+  --blue-main-color: #3B71F7;
+  --white-main-color: #FFFFFF;
 }
 

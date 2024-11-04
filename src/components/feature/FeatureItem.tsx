@@ -12,6 +12,7 @@ const STYLES = {
     flexDirection: "column",
     alignItems: "center",
     gap: "8px",
+    padding: "16px 0",
   },
   label: {
     fontSize: "16px",

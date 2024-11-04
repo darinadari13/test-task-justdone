@@ -9,7 +9,8 @@ interface FeaturesListProps {
 
 const STYLES = {
   containerMain: {
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: '60px',
   },
   featuresContainer: {
     display: "flex",
