@@ -14,10 +14,6 @@ const DISCOUNT_TIME_WINDOW = {
   seconds: 2,
 }
 
-//todo:
-// 1.Add start timer time in ls 
-// 2.Add pause timer time in ls
-
 function getTimerEndTimestamp(): number | null {
   const endTimestamp = window.localStorage.getItem('timerEndTimestamp');
 

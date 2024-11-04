@@ -1,4 +1,3 @@
-// src/components/product/ProductCard.tsx
 import React, { useMemo } from 'react';
 import { Card, CardContent, Typography, Box, Stack, Chip} from '@mui/material';
 
@@ -7,8 +6,8 @@ import BestValueChip from './BestValueChip';
 import { Product } from 'src/types/Product';
 import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/utils';
 import { DiscoundTime } from 'src/types/common';
-import CheckedIcon from '../../assets/checked-icon.svg';
-import UnCheckedIcon from '../../assets/unchecked-icon.svg';
+import CheckedIcon from 'src/assets/checked-icon.svg';
+import UnCheckedIcon from 'src/assets/unchecked-icon.svg';
 
 
 
