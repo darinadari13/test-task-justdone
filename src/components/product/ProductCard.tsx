@@ -8,6 +8,7 @@ import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/ut
 import { DiscoundTime } from 'src/types/common';
 import CheckedIcon from 'src/assets/checked-icon.svg';
 import UnCheckedIcon from 'src/assets/unchecked-icon.svg';
+import breakpoints from 'src/styles/breakpoints';
 
 
 
@@ -15,19 +16,22 @@ interface ProductCardProps {
   product: Product;
   onSelect: (id: string) => void;
   isSelected: boolean;
-  discountTime?: DiscoundTime;
-  isTimerFinished: boolean;
+  discountTime: DiscoundTime | null;
+  isTimerFinished?: boolean;
 }
 
 const STYLES = {
   cardBaseStyles: {
     borderRadius: '16px',
     cursor: 'pointer',
-    minWidth: 363,
-    width: '100%',
     borderWidth: '4px',
     overflow: 'visible',
     position: 'relative',
+    maxWidth: '363px',
+    [breakpoints.mobile]: {
+      width: '100%',
+      maxWidth: '100%',
+    }
   },
   cardContentStyles: {
     padding: '12px 16px', 
@@ -132,7 +136,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
           <Stack direction="column" alignItems="flex-end">
             <Typography variant="body2" color="text.secondary" sx={STYLES.prevPriceText}>
               <span className='strikethroughText'>
-              {!isShowDiscountedTrialPrice ? getFormattedSubscriptionPrice(product, false) : ZERO_WIDTH_SPACE}
+                {!isShowDiscountedTrialPrice ? getFormattedSubscriptionPrice(product, false) : ZERO_WIDTH_SPACE}
               </span>
             </Typography>
             <Typography variant="h4" color="primary" sx={STYLES.priceText}>

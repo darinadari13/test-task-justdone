@@ -8,6 +8,9 @@ import { Product } from 'src/types/Product';
 import useCountdown from 'src/hooks/useCountdown';
 import { Box } from '@mui/material';
 import SubscriptionText from 'src/components/subscription/Subscription';
+import breakpoints from 'src/styles/breakpoints';
+import useResponsive, { ScreenType } from 'src/hooks/useResponsive';
+import MobileTimer from 'src/components/timer/MobileTimer';
 
 const BUTTON_TEXT = "Get Started";
 
@@ -25,6 +28,12 @@ const STYLES = {
     gap: '20px', 
     flexWrap: 'wrap',
     marginBottom: '42px',
+    flexDirection: 'row',
+    [breakpoints.mobile]: {
+      flexDirection: 'column-reverse',
+      width: '100%',
+      maxWidth: '100%',
+    }
   },
   subscriptionContainer: {
     display: 'flex',
@@ -56,6 +65,10 @@ export default function PlanPage() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [isTimerFinished, setIsTimerFinished] = useState<boolean | null>(null);
 
+  const screenType = useResponsive()
+  const isMobile = screenType === ScreenType.Mobile;
+  const isMobileTimerVisible = isMobile && !isTimerFinished;
+
   const { start, time } = useCountdown(DISCOUNT_TIME_WINDOW.minutes, DISCOUNT_TIME_WINDOW.seconds);
 
   useEffect(() => {
@@ -77,6 +90,7 @@ export default function PlanPage() {
 
   return (
     <PricingLayout>
+      {isMobileTimerVisible && <MobileTimer minutes={time.minutes} seconds={time.seconds} />}
       <Box sx={STYLES.container}>
         {products.map((product) => (
           <ProductCard
@@ -84,7 +98,7 @@ export default function PlanPage() {
             product={product}
             onSelect={setSelectedProduct}
             isSelected={selectedProduct === product.id}
-            discountTime={time}
+            discountTime={isMobile ? null : time}
             isTimerFinished={isTimerFinished}
           />
         ))}
