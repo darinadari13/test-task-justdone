@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
-import { DiscoundTime } from 'src/types/common';
+import { DiscountTime } from 'src/types/common';
 
-function useCountdown(initialMinutes = 0, initialSeconds = 0) {
-  const [time, setTime] = useState<DiscoundTime>({
-    minutes: initialMinutes,
-    seconds: initialSeconds,
+function useCountdown() {
+  const [time, setTime] = useState<DiscountTime>({
+    minutes: 0,
+    seconds: 0,
   });
 
   const [isActive, setIsActive] = useState(false);
 
-  const start = () => {
+  const start = (initialMinutes = 0, initialSeconds = 0) => {
+    setTime({
+      minutes: initialMinutes,
+      seconds: initialSeconds,
+    })
     setIsActive(true);
   };
 

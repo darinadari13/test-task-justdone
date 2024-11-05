@@ -6,7 +6,7 @@ import ProductCard from "src/components/product/ProductCard";
 import GradientButton from 'src/components/button/GradientButton';
 import productsData from 'src/data/products.json';
 import type { Product } from 'src/types/Product';
-import { ScreenType } from 'src/types/common';
+import { DiscountTime, ScreenType } from 'src/types/common';
 import useCountdown from 'src/hooks/useCountdown';
 import SubscriptionText from 'src/components/subscription/Subscription';
 import breakpoints from 'src/styles/breakpoints';
@@ -56,11 +56,15 @@ function setTimerEndTimestamp(timestamp: number): void {
   window.localStorage.setItem('timerEndTimestamp', timestamp.toString());
 }
 
-function checkIsTimerFinished(): boolean {
-  const timerEndTimestamp = getTimerEndTimestamp();
-  const currentTimestamp = Date.now();
+function convertMSToMinutesAndSeconds(milliseconds: number): DiscountTime {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
 
-  return Boolean(timerEndTimestamp && timerEndTimestamp < currentTimestamp);
+  return {
+    minutes,
+    seconds
+  };
 }
 
 export default function PlanPage() {
@@ -71,27 +75,44 @@ export default function PlanPage() {
   const isMobile = screenType === ScreenType.Mobile;
   const isMobileTimerVisible = isMobile && !isTimerFinished;
 
-  const { start, time } = useCountdown(DISCOUNT_TIME_WINDOW.minutes, DISCOUNT_TIME_WINDOW.seconds);
+  const { start, time } = useCountdown();
 
   const handleSelectProduct = (product: Product) => {
     setSelectedProduct(product);
   };
 
   useEffect(() => {
-    const isTimerFinished = checkIsTimerFinished()
+    // Retriving timer end timestamp and current timestamp
+    const endTimestamp = getTimerEndTimestamp();
+    const currentTimestamp = Date.now();
 
-    setIsTimerFinished(isTimerFinished)
+    let timerTime = DISCOUNT_TIME_WINDOW
 
-    if (!isTimerFinished) {
-      start()
+    if (endTimestamp) {
+      // Calculating diff between timer end timestamp and current timestamp (milliseconds)
+      const millisecondsLeft = endTimestamp - currentTimestamp
 
-      const endTimestamp = Date.now() + DISCOUNT_TIME_WINDOW.minutes * 60 * 1000 + DISCOUNT_TIME_WINDOW.seconds * 1000
-      setTimerEndTimestamp(endTimestamp)
+      if (millisecondsLeft > 0) {
+        // In case there is time left -> start timer with time left
+        timerTime = convertMSToMinutesAndSeconds(millisecondsLeft)
+        setIsTimerFinished(false)
+      } else {
+        // Othervise do nothing, just set that timer is finished
+        setIsTimerFinished(true)
+      }
+    } else {
+      // Block to save end timer timestamp for future analisys
+      const newEndTimestamp = currentTimestamp + DISCOUNT_TIME_WINDOW.minutes * 60 * 1000 + DISCOUNT_TIME_WINDOW.seconds * 1000;
+      setTimerEndTimestamp(newEndTimestamp);
+      setIsTimerFinished(false)
     }
+
+    start(timerTime.minutes, timerTime.seconds);
   }, []);
 
 
   if (isTimerFinished === null) {
+    console.warn('isTimerFinished is not initialized');
     return null
   }
 

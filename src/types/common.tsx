@@ -1,6 +1,6 @@
 export type BageTitle = 'Most Popular' | 'Save 90%' | 'Save 50%';
 
-export type DiscoundTime = {
+export type DiscountTime = {
   minutes: number;
   seconds: number;
 }

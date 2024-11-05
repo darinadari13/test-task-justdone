@@ -5,7 +5,7 @@ import ProductCardTimer from './ProductCardTimer';
 import BestValueChip from './BestValueChip';
 import breakpoints from 'src/styles/breakpoints';
 import type { Product } from 'src/types/Product';
-import type { DiscoundTime } from 'src/types/common';
+import type { DiscountTime } from 'src/types/common';
 import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/utils';
 import CheckedIcon from 'src/assets/checked-icon.svg';
 import UnCheckedIcon from 'src/assets/unchecked-icon.svg';
@@ -15,7 +15,7 @@ interface ProductCardProps {
   product: Product;
   onSelect: (product: Product) => void;
   isSelected: boolean;
-  discountTime: DiscoundTime | null;
+  discountTime: DiscountTime | null;
   isTimerFinished?: boolean;
 }
 
