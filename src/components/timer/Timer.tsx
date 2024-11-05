@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
-import AcuteIcon from '../../assets/acute.svg';
+import AcuteIcon from 'src/assets/acute.svg';
 
 
 interface TimerProps {
@@ -8,10 +8,12 @@ interface TimerProps {
   seconds: number;
 }
 
+const TIMER_TITLE = 'SALE ENDS IN'
+
 const STYLES = {
   box: {
     backgroundColor: 'var(--dark-main-color)',
-    color: 'white',
+    color: 'var(--white-main-color)',
     display: 'flex',
     height: '100%',
     alignItems: 'center',
@@ -31,7 +33,7 @@ const Timer: React.FC<TimerProps> = ({ minutes, seconds }) => {
     <Stack sx={STYLES.box} direction="row" spacing={1}>
       <AcuteIcon />
       <Typography variant="body2" sx={STYLES.text}>
-        SALE ENDS IN
+        ${TIMER_TITLE}
       </Typography>
       <Typography variant="body2" sx={STYLES.text}>
         {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}

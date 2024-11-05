@@ -10,6 +10,11 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+const FLEX_CENTERED_COLUMN = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
 
 const STYLES = {
   mainContainer: {
@@ -30,15 +35,11 @@ const STYLES = {
     },
   }, 
   containerFeatures: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    ...FLEX_CENTERED_COLUMN,
     gap: '16px',
   },
   containerInner: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    ...FLEX_CENTERED_COLUMN,
   }
 }
 

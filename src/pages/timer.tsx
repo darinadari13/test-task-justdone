@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 
 import PricingLayout from "src/components/layout/Layout";
 import ProductCard from "src/components/product/ProductCard";
 import GradientButton from 'src/components/button/GradientButton';
-import productsData from '../data/products.json';
-import { Product } from 'src/types/Product';
+import productsData from 'src/data/products.json';
+import type { Product } from 'src/types/Product';
+import { ScreenType } from 'src/types/common';
 import useCountdown from 'src/hooks/useCountdown';
-import { Box } from '@mui/material';
 import SubscriptionText from 'src/components/subscription/Subscription';
 import breakpoints from 'src/styles/breakpoints';
-import useResponsive, { ScreenType } from 'src/hooks/useResponsive';
+import useResponsive  from 'src/hooks/useResponsive';
 import MobileTimer from 'src/components/timer/MobileTimer';
+
 
 const BUTTON_TEXT = "Get Started";
 

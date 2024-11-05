@@ -4,7 +4,6 @@ import PageWithTimer from "./timer";
 import PageWithoutTimer from "./without-timer" 
 
 
-
 const HomePage = () => {
   const enabled = useFeatureIsOn("timer-feature");
 

@@ -55,6 +55,7 @@ export default function PlanPage() {
             onSelect={handleSelectProduct}
             isSelected={selectedProduct?.id === product.id}
             discountTime={null}
+            isTimerFinished={true}
           />
         ))}
       </Box>

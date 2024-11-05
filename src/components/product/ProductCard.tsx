@@ -3,13 +3,12 @@ import { Card, CardContent, Typography, Box, Stack, Chip} from '@mui/material';
 
 import ProductCardTimer from './ProductCardTimer';
 import BestValueChip from './BestValueChip';
-import { Product } from 'src/types/Product';
+import breakpoints from 'src/styles/breakpoints';
+import type { Product } from 'src/types/Product';
+import type { DiscoundTime } from 'src/types/common';
 import { getFormattedSubscriptionPrice, getSubscriptionPeriodText } from 'src/utils';
-import { DiscoundTime } from 'src/types/common';
 import CheckedIcon from 'src/assets/checked-icon.svg';
 import UnCheckedIcon from 'src/assets/unchecked-icon.svg';
-import breakpoints from 'src/styles/breakpoints';
-
 
 
 interface ProductCardProps {
@@ -27,7 +26,7 @@ const STYLES = {
     borderWidth: '4px',
     overflow: 'visible',
     position: 'relative',
-    maxWidth: '363px',
+    width: '363px',
     [breakpoints.mobile]: {
       width: '100%',
       maxWidth: '100%',
@@ -56,11 +55,7 @@ const STYLES = {
     fontSize: "12px",
     lineHeight: "20px",
     letterSpacing: "0.1px",
-  },
-  prevPriceText: {
-    fontSize: "12px",
-    lineHeight: "20px",
-    letterSpacing: "0.1px",
+    color: 'var(--text-accent-color)',
   },
   absoluteChip: {
     position: 'absolute',
@@ -111,7 +106,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
       sx={cardStyles}
     >
       {
-        plan_ui_discount_text &&
+        plan_ui_discount_text && !isShowDiscountedTrialPrice && 
           <Box sx={STYLES.absoluteChip}>
             <Chip label={plan_ui_discount_text} color="success" />
           </Box>
@@ -136,7 +131,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
             </Typography>
           </Stack>
           <Stack direction="column" alignItems="flex-end">
-            <Typography variant="body2" color="text.secondary" sx={STYLES.prevPriceText}>
+            <Typography sx={STYLES.periodText}>
               <span className='strikethroughText'>
                 {!isShowDiscountedTrialPrice ? getFormattedSubscriptionPrice(product, false) : ZERO_WIDTH_SPACE}
               </span>
@@ -144,7 +139,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
             <Typography variant="h4" sx={STYLES.priceText}>
               {getFormattedSubscriptionPrice(product, true)}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={STYLES.periodText}>
+            <Typography sx={STYLES.periodText}>
               {getSubscriptionPeriodText(product)}
             </Typography>
           </Stack>

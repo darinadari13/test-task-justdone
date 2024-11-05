@@ -2,7 +2,6 @@ import { Box, Typography, Link } from "@mui/material";
 
 const AUTOMATIC_RENEWAL_INFO = 'Automatic renewal of $29.99 per month.'
 
-
 const STYLES = {
   text: {
     color: 'var(--text-secondary-color)',

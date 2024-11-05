@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { Box, Stack } from '@mui/material';
-import { Feature } from "src/types/Feature";
-import FeatureItem from "./FeatureItem";
+import React from "react";
 import Marquee from "react-fast-marquee";
+import { Box, Stack } from '@mui/material';
+
+import FeatureItem from "./FeatureItem";
 import breakpoints from "src/styles/breakpoints";
-import useResponsive, { ScreenType } from "src/hooks/useResponsive";
-import { text } from "stream/consumers";
+import useResponsive from "src/hooks/useResponsive";
+import { Feature } from "src/types/Feature";
+import { ScreenType } from "src/types/common";
 
 interface FeaturesListProps {
   features: Feature[];
@@ -29,7 +30,6 @@ function FeaturesList({ features }: FeaturesListProps) {
     return null;
   }
   
-
   return (
     <Box sx={STYLES.listWrapper}>
       {

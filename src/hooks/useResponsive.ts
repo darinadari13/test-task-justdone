@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
 
-// Define an enum for screen types
-export enum ScreenType {
-  Mobile = 'mobile',
-  Tablet = 'tablet',
-  Desktop = 'desktop',
-}
+import { ScreenType } from 'src/types/common';
 
-// Define breakpoints for mobile, tablet, and desktop
 const breakpoints = {
-  mobile: 1024, // example for your mobile breakpoint
-  tablet: 1280,
+  mobile: 1024,
 };
 
 const useResponsive = (): ScreenType | null => {
@@ -20,8 +13,6 @@ const useResponsive = (): ScreenType | null => {
     const width = window.innerWidth;
     if (width < breakpoints.mobile) {
       setScreenType(ScreenType.Mobile);
-    } else if (width < breakpoints.tablet) {
-      setScreenType(ScreenType.Tablet);
     } else {
       setScreenType(ScreenType.Desktop);
     }

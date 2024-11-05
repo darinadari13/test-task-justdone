@@ -4,3 +4,8 @@ export type DiscoundTime = {
   minutes: number;
   seconds: number;
 }
+
+export enum ScreenType {
+  Mobile = 'mobile',
+  Desktop = 'desktop',
+}
