@@ -7,28 +7,23 @@ import type { AppProps } from 'next/app';
 import 'src/styles/globals.css';
 import 'src/styles/colors.css';
 import theme from 'src/styles/theme';
-import { generateUUID } from "src/utils";
+import { generateOrGetUserUUID } from "src/utils";
 
+// Must be in secrets/env variables
+// to save some time hardcoded them here (but it's bad approach)
 const API_HOST = "https://cdn.growthbook.io"
 const CLIENT_KEY = "sdk-jZ6PLZY0iNgHcOB"
 
 const growthbook = new GrowthBook({
   apiHost: API_HOST,
   clientKey: CLIENT_KEY,
-  enableDevMode: true,
-  // trackingCallback: (experiment, result) => {
-  //   console.log("Viewed Experiment", {
-  //     experimentId: experiment.key,
-  //     variationId: result.key
-  //   });
-  // }
 });
 
 
-const userId = generateUUID()
-
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
+    const userId = generateOrGetUserUUID()
+
     growthbook.init({ streaming: true });
     growthbook.setAttributes({
       id: userId,

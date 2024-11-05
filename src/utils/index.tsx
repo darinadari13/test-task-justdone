@@ -1,5 +1,7 @@
 import { Product } from "src/types/Product";
 
+const USER_ID_LS_KEY = 'unique-user-id'
+
 export const formatPrice = (amount: number) => (amount / 100).toFixed(2);
 
 export const getSubscriptionPrice = (product: Product, isDiscounted: boolean): number => {
@@ -32,10 +34,20 @@ export const getSubscriptionPeriodText = (product: Product) => {
     : `Per ${regularity}`;
 }
 
-export const generateUUID = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+export const generateOrGetUserUUID = (): string => {
+  const existingUserId = localStorage.getItem(USER_ID_LS_KEY)
+
+  if (existingUserId) {
+    return existingUserId
+  }
+
+  const newUserId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
     const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
-  });
+  })
+
+  localStorage.setItem(USER_ID_LS_KEY, newUserId)
+
+  return newUserId
 }
