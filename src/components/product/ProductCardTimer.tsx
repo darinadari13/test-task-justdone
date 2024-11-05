@@ -1,4 +1,3 @@
-// src/components/product/ProductCard.tsx
 import React from 'react';
 import { Box } from '@mui/material';
 
@@ -23,7 +22,7 @@ const STYLES = {
     height: 0,
     borderLeft: '8px solid transparent',
     borderRight: '8px solid transparent',
-    borderTop: '8px solid red',
+    borderTop: '8px solid var(--dark-main-color)',
   },
   boxHidden: {
     height: '56px',

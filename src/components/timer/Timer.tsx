@@ -10,7 +10,7 @@ interface TimerProps {
 
 const STYLES = {
   box: {
-    backgroundColor: 'black',
+    backgroundColor: 'var(--dark-main-color)',
     color: 'white',
     display: 'flex',
     height: '100%',
@@ -19,7 +19,7 @@ const STYLES = {
   },
   text: {
     fontSize: '16px',
-    color: '#FFCC8F',
+    color: 'var(--beige-main-color)',
     fontWeight: 600,
     lineHeight: '24px',
     letterSpacing: '0.1px',
