@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
 import PricingLayout from "src/components/layout/Layout";
 import ProductCard from "src/components/product/ProductCard";
@@ -13,10 +13,6 @@ const BUTTON_TEXT = "Get Started";
 
 const products: Product[] = productsData as Product[];
 
-const DISCOUNT_TIME_WINDOW = {
-  minutes: 0,
-  seconds: 0,
-}
 
 const STYLES = {
   container: {
@@ -43,7 +39,11 @@ const STYLES = {
 
 
 export default function PlanPage() {
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const handleSelectProduct = (product: Product) => {
+    setSelectedProduct(product);
+  };
 
   return (
     <PricingLayout>
@@ -52,14 +52,14 @@ export default function PlanPage() {
           <ProductCard
             key={product.id}
             product={product}
-            onSelect={setSelectedProduct}
-            isSelected={selectedProduct === product.id}
+            onSelect={handleSelectProduct}
+            isSelected={selectedProduct?.id === product.id}
             discountTime={null}
           />
         ))}
       </Box>
       <Box sx={STYLES.subscriptionContainer}>
-        <GradientButton text={BUTTON_TEXT} />
+        <GradientButton text={BUTTON_TEXT} product={selectedProduct}/>
         <SubscriptionText />
       </Box>
     </PricingLayout>

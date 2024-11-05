@@ -22,7 +22,7 @@ const STYLES = {
       display: "flex",
       alignItems: "center",
       gap: "8px",
-      height: '40px',
+      height: '44px',
     },
     '& .MuiChip-label': {
       padding: 0,

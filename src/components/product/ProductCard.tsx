@@ -14,7 +14,7 @@ import breakpoints from 'src/styles/breakpoints';
 
 interface ProductCardProps {
   product: Product;
-  onSelect: (id: string) => void;
+  onSelect: (product: Product) => void;
   isSelected: boolean;
   discountTime: DiscoundTime | null;
   isTimerFinished?: boolean;
@@ -42,13 +42,15 @@ const STYLES = {
   },
   planName: {
     fontSize: "17px",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    margin: '0 8px 0 12px',
   },
   priceText: {
     fontSize: "20px",
     lineHeight: "24px",
     fontWeight: "700",
     letterSpacing: "0.1px",
+    color: 'var(--blue-main-color)',
   },
   periodText: {
     fontSize: "12px",
@@ -88,7 +90,7 @@ const ZERO_WIDTH_SPACE = '\u200B';
 const SAVE_50_TITLE = 'Save 50%'
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected, discountTime, isTimerFinished }) => {
-  const { id, name, plan_ui_discount_text, discounted_trial_price } = product;
+  const {  name, plan_ui_discount_text, discounted_trial_price } = product;
 
   const cardStyles = useMemo(() => ({
     borderColor: isSelected ? 'var(--green-main-color)' : 'var(--border-default-color)',
@@ -96,7 +98,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
   }), [isSelected])
 
   const handleCardClick = () => {
-    onSelect(id)
+    onSelect(product);
   }
 
   const isShowDiscountedTrialPrice = discounted_trial_price && isTimerFinished
@@ -125,11 +127,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
 
       <CardContent sx={STYLES.cardContentStyles}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Stack direction="row" spacing={1} alignItems="flex-start">
+          <Stack direction="row"  alignItems="flex-start">
             <Box>
               {isSelected ? <CheckedIcon /> : <UnCheckedIcon />}
             </Box>
-            <Typography variant="h6" component="div" sx={STYLES.planName}>
+            <Typography sx={STYLES.planName}>
               {name}
             </Typography>
           </Stack>
@@ -139,7 +141,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, isSelected
                 {!isShowDiscountedTrialPrice ? getFormattedSubscriptionPrice(product, false) : ZERO_WIDTH_SPACE}
               </span>
             </Typography>
-            <Typography variant="h4" color="primary" sx={STYLES.priceText}>
+            <Typography variant="h4" sx={STYLES.priceText}>
               {getFormattedSubscriptionPrice(product, true)}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={STYLES.periodText}>

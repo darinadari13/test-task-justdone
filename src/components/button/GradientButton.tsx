@@ -1,5 +1,7 @@
-import { Button, styled } from "@mui/material";
 import React from "react";
+
+import { Button, styled } from "@mui/material";
+import { Product } from "src/types/Product";
 
 const StyledButton = styled(Button)({
   background: "linear-gradient(90deg, var(--green-main-color) 0%, var(--blue-main-color) 100%), var(--grey-secondary-color)", 
@@ -17,10 +19,15 @@ const StyledButton = styled(Button)({
 
 interface GradientButtonProps {
   text: string;
+  product: Product | null;
 }
 
-const GradientButton: React.FC<GradientButtonProps> = ({ text }) => {
-  return <StyledButton>{text}</StyledButton>;
+const GradientButton: React.FC<GradientButtonProps> = ({ text, product }) => {
+  const handleButtonClick = () => {
+    console.log(`Selected product id: ${product?.id}, name: ${product?.name}`);
+  };
+
+  return <StyledButton onClick={handleButtonClick}>{text}</StyledButton>;
 };
 
 export default GradientButton;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PricingLayout from "src/components/layout/Layout";
 import ProductCard from "src/components/product/ProductCard";
@@ -62,7 +62,7 @@ function checkIsTimerFinished(): boolean {
 }
 
 export default function PlanPage() {
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isTimerFinished, setIsTimerFinished] = useState<boolean | null>(null);
 
   const screenType = useResponsive()
@@ -70,6 +70,10 @@ export default function PlanPage() {
   const isMobileTimerVisible = isMobile && !isTimerFinished;
 
   const { start, time } = useCountdown(DISCOUNT_TIME_WINDOW.minutes, DISCOUNT_TIME_WINDOW.seconds);
+
+  const handleSelectProduct = (product: Product) => {
+    setSelectedProduct(product);
+  };
 
   useEffect(() => {
     const isTimerFinished = checkIsTimerFinished()
@@ -84,6 +88,7 @@ export default function PlanPage() {
     }
   }, []);
 
+
   if (isTimerFinished === null) {
     return null
   }
@@ -96,15 +101,15 @@ export default function PlanPage() {
           <ProductCard
             key={product.id}
             product={product}
-            onSelect={setSelectedProduct}
-            isSelected={selectedProduct === product.id}
+            onSelect={handleSelectProduct}
+            isSelected={selectedProduct?.id === product.id}
             discountTime={isMobile ? null : time}
             isTimerFinished={isTimerFinished}
           />
         ))}
       </Box>
       <Box sx={STYLES.subscriptionContainer}>
-        <GradientButton text={BUTTON_TEXT} />
+        <GradientButton text={BUTTON_TEXT} product={selectedProduct}/>
         <SubscriptionText />
       </Box>
     </PricingLayout>
