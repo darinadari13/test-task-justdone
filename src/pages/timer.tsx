@@ -17,8 +17,8 @@ const BUTTON_TEXT = "Get Started";
 const products: Product[] = productsData as Product[];
 
 const DISCOUNT_TIME_WINDOW = {
-  minutes: 0,
-  seconds: 2,
+  minutes: 20,
+  seconds: 0,
 }
 
 const STYLES = {
