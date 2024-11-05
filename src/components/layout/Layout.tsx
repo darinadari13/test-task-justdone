@@ -28,7 +28,9 @@ const STYLES = {
     lineHeight: "52px",
     fontWeight: 600,
     color: "var(--text-accent-color)",
+    marginTop: 0,
     [breakpoints.mobile]: {
+      marginTop: '40px',
       fontSize: "28px",
       lineHeight: "36px",
       fontWeight: 700,

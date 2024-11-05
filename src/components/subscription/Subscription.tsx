@@ -1,4 +1,5 @@
 import { Box, Typography, Link } from "@mui/material";
+import breakpoints from "src/styles/breakpoints";
 
 const AUTOMATIC_RENEWAL_INFO = 'Automatic renewal of $29.99 per month.'
 
@@ -7,6 +8,10 @@ const STYLES = {
     color: 'var(--text-secondary-color)',
     fontSize: '12px',
     lineHeight: '20px',
+    marginBottom: 0,
+    [breakpoints.mobile]: {
+      marginBottom: '40px',
+    },
   }
 }
 
