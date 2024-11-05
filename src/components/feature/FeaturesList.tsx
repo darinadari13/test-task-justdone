@@ -27,6 +27,7 @@ function FeaturesList({ features }: FeaturesListProps) {
   const isMobile = screenType === ScreenType.Mobile;
 
   if (screenType === null) {
+    console.warn('screenType is not initialized');
     return null;
   }
   
