@@ -19,3 +19,6 @@ This app has 3 different routes
 
 Each browser new session initialisation app will create and store unique user id in LocalStorage
 This user id will be used to determine to which A/B Test Group user will be attached
+
+## App deployed to Netlify
+https://ab-timer.netlify.app/
